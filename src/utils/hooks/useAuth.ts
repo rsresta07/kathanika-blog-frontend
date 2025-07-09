@@ -1,25 +1,13 @@
-import { useEffect, useState } from "react";
-import { getCookie, deleteCookie } from "cookies-next";
+import { useSession, signOut } from "next-auth/react";
 
 export const useAuth = () => {
-  const [user, setUser] = useState<any>(null);
+  const { data: session, status } = useSession();
 
-  useEffect(() => {
-    const cookie = getCookie("user");
-    if (cookie) {
-      try {
-        setUser(JSON.parse(cookie as string));
-      } catch {
-        setUser(null);
-      }
-    }
-  }, []);
-
-  const logout = () => {
-    deleteCookie("user");
-    deleteCookie("token");
-    window.location.href = "/"; // or router.push("/")
+  return {
+    user: session?.user ?? null,
+    token: session?.backendToken ?? null,
+    loading: status === "loading",
+    loggedIn: !!session?.user,
+    logout: () => signOut({ callbackUrl: "/" }),
   };
-
-  return { user, logout };
 };

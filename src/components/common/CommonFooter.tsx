@@ -4,7 +4,6 @@ import {
   IconBrandYoutube,
 } from "@tabler/icons-react";
 import { ActionIcon, Anchor, Group } from "@mantine/core";
-import classes from "@/styles/FooterCentered.module.css";
 import CommonLogo from "./CommonLogo";
 import Link from "next/link";
 
@@ -30,7 +29,7 @@ export default function CommonFooter() {
         <CommonLogo />
       </section>
       <section>
-        <Group className={classes.links}>{items}</Group>
+        <Group>{items}</Group>
       </section>
     </main>
   );

@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 
 import headerData from "@/utils/mock/headerData.json";
 import CommonLogo from "@/components/common/CommonLogo";
-import LoginModal from "../modals/LoginModal";
-import RegisterModal from "../modals/RegisterModal";
+import SocialAuthModal from "../modals/SocialAuthModal";
 import { useAuth } from "@/utils/hooks/useAuth";
 import { useHotkeys } from "@mantine/hooks";
 import { Shortcut } from "@/utils/lib/Shortcut";
@@ -21,8 +20,7 @@ import { TextInput } from "@mantine/core";
 
 export default function CommonHeader() {
   // State
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
   const [actions, setActions] = useState<SpotlightActionData[]>([]);
 
   // auth
@@ -30,17 +28,6 @@ export default function CommonHeader() {
 
   // router
   const router = useRouter();
-
-  // modals ctl
-  const openRegisterModal = () => {
-    setIsRegisterModalOpen(true);
-    setIsLoginModalOpen(false);
-  };
-
-  const openLoginModal = () => {
-    setIsLoginModalOpen(true);
-    setIsRegisterModalOpen(false);
-  };
 
   // TODO: remove this
   // fun Easter-egg rickroll
@@ -166,26 +153,24 @@ export default function CommonHeader() {
             <div className="flex items-center gap-2">
               {user ? (
                 <div className="flex items-center gap-6">
-                  <Link
-                    href={
-                      user.role === "SUPER_ADMIN" // Assuming dashboard also uses slug for consistency
-                        ? `/dashboard/${user?.slug}`
-                        : `/user/${user?.slug}`
-                    }
-                  >
-                    <span className="cursor-pointer text-xl">Profile</span>
-                  </Link>
+                  {/* {user?.slug && ( */}
+                    <Link
+                      href={
+                        user.role === "SUPER_ADMIN" // Assuming dashboard also uses slug for consistency
+                          ? `/dashboard/${user?.slug}`
+                          : `/user/${user?.slug}`
+                      }
+                    >
+                      <span className="cursor-pointer text-xl">Profile</span>
+                    </Link>
+                  {/* )} */}
                   <span className="mx-1">|</span>
                   <button onClick={logout} className="text-xl text-red-600">
                     Logout
                   </button>
                 </div>
               ) : (
-                <>
-                  <LoginModal openRegisterModal={openRegisterModal} />
-                  <span className="mx-1">|</span>
-                  <RegisterModal openLoginModal={openLoginModal} />
-                </>
+                <SocialAuthModal />
               )}
             </div>
           </li>
