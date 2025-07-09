@@ -18,6 +18,12 @@
     },
     "typeRoots": ["./types", "./node_modules/@types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "types/**/*.ts",
+    "next-auth.d.ts"
+  ],
   "exclude": ["node_modules"]
 }
