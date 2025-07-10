@@ -12,12 +12,12 @@ export async function uploadImageToCloudinary(file: File): Promise<string> {
   // 2) prepare form-data
   const fd = new FormData();
   fd.append("file", compressed);
-  fd.append("upload_preset", process.env.PUBLIC_CLOUDINARY_PRESET!);
+  fd.append("upload_preset", process.env.CLOUDINARY_PRESET!);
 
   // 3) POST to Cloudinary unsigned endpoint
   const res = await fetch(
     `https://api.cloudinary.com/v1_1/${
-      process.env.PUBLIC_CLOUDINARY_CLOUD
+      process.env.CLOUDINARY_CLOUD
     }/upload`,
     { method: "POST", body: fd }
   );
