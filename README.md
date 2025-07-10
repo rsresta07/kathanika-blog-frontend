@@ -23,7 +23,7 @@ The Admin dashboard can be access through `/login` same as the user profile.
 To run this project, you will need to add the following environment variables to your `.env.local` file
 
 ```bash
-NEXT_PUBLIC_API_BASE_URL=http://localhost:8080/api/v1
+PUBLIC_API_BASE_URL=http://localhost:8080/api/v1
 ```
 
 ## Project Setup

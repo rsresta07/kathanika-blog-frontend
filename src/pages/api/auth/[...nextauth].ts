@@ -42,6 +42,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
     },
     callbacks: {
       async signIn({ user, account }) {
+        console.log("✅ signIn callback running");
         if (!account) return false;
 
         try {
@@ -60,7 +61,7 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           console.log("Request body:", requestBody);
 
           const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/oauth`,
+            `${process.env.PUBLIC_API_BASE_URL}/auth/oauth`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -89,8 +90,8 @@ export default async function auth(req: NextApiRequest, res: NextApiResponse) {
           user.role = backendData.role;
 
           console.log("Account after storing backend data:", account);
-          return user;
-
+          console.log("✅ SignIn success — returning true");
+          return true;
         } catch (error) {
           console.error("Error during OAuth sign in:", error);
           return false;
